@@ -11,6 +11,13 @@ passport.use(new GoogleStrategy(
     callbackURL: '/auth/google/callback'
   },
   (accessToken, refreshToken, profile, done) => {
-    new User({userid: profile.id}).save()
+    // check db for profile id
+    // if not in db then save
+    User.findOne({userid: profile.id})
+      .then(existingUser => {
+        if (!existingUser) {
+          new User({userid: profile.id}).save()
+        }
+      })
   }
 ))
