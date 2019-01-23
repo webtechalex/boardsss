@@ -1,7 +1,8 @@
 require('dotenv').config()
-require('./services/passport')
 const express = require('express')
 const mongoose = require('mongoose')
+require('./models/User')
+require('./services/passport')
 
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true })
 
